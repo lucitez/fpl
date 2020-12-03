@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   ENTER,
   Layout as MDLayout,
+  LayoutCloseNavigationButton,
   useCrossFade,
   useLayoutNavigation,
 } from 'react-md';
@@ -22,9 +23,12 @@ const Layout: FC = () => {
   return (
     <MDLayout
       treeProps={useLayoutNavigation(navItems, pathname, Link)}
-      title='FPL blastoff'
-      navHeaderTitle='reach for the stars'
+      title='FPL Player Statistics'
       mainProps={transitionProps}
+      desktopLayout='temporary'
+      navProps={{
+        children: <LayoutCloseNavigationButton />,
+      }}
     >
       <App />
     </MDLayout>

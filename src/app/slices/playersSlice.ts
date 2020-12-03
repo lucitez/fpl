@@ -1,33 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Player } from '../../client/typings';
 import { getDump } from './dumpSlice';
 
+interface PlayerState extends Player {
+  goals_plus_assists: number;
+}
+
 interface PlayersState {
-  byId: Record<string, Player>;
+  byId: Record<string, PlayerState>;
+  selectedTeam: string;
 }
 
 const initialState: PlayersState = {
   byId: {},
+  selectedTeam: null,
 };
 
-export const teamsSlice = createSlice({
-  name: 'teams',
+export const playersSlice = createSlice({
+  name: 'players',
   initialState,
-  reducers: {},
+  reducers: {
+    updateSelectedTeam(state, action: PayloadAction<string>) {
+      state.selectedTeam = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(
       getDump.fulfilled,
       (state, { payload: { elements: players } }) => {
         players.forEach((player) => {
-          const { id, goals_scored } = player;
+          const { id } = player;
 
-          if (goals_scored > 5) {
-            state.byId[id] = player;
-          }
+          state.byId[id] = {
+            ...player,
+            goals_plus_assists: player.goals_scored + player.assists,
+          };
         });
       },
     );
   },
 });
 
-export default teamsSlice.reducer;
+export const { updateSelectedTeam } = playersSlice.actions;
+export default playersSlice.reducer;

@@ -1,4 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { createSelectorHook } from 'react-redux';
 import slices from './slices';
 
 export const store = configureStore({
@@ -8,6 +9,8 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+
+export const useTypedSelector = createSelectorHook<RootState>();
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,
