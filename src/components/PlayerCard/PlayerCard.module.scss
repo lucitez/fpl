@@ -1,0 +1,22 @@
+@import '~@react-md/theme/dist/color-palette';
+
+.card {
+  width: 100%;
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 1rem 1rem;
+}
+
+.text {
+  padding: 0 0.5rem;
+}

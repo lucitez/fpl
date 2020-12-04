@@ -1,148 +1,89 @@
-import React, { FC } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHeader,
-  TableRow,
-} from 'react-md';
-import { useDispatch } from 'react-redux';
-import {
-  getFilteredPlayers,
-  getSortData,
-  updateSortColumn,
-} from '../../app/slices/playerTableSlice';
+import React, { FC, useEffect } from 'react';
+import { getFilteredPlayers } from '../../app/slices/playerTableSlice';
 import { useTypedSelector } from '../../app/store';
-import './PlayerTable.scss';
+import Table, { Column } from 'components/Table';
+import { Player } from 'client/typings';
 
-// todo: create better interface for table
-// experiment more with the overrides
-// add correct columns to this table
+import styles from './PlayerTable.module.scss';
+import { useQueryParam } from 'use-query-params';
+import { Card, CardContent } from 'react-md';
 
 const PlayerTable: FC = () => {
-  const dispatch = useDispatch();
+  const [sortColumn, setSortColumn] = useQueryParam<string>('sort');
+  const [sortDirection, setSortDirection] = useQueryParam<'asc' | 'desc'>(
+    'direction',
+  );
 
-  const { column, direction } = useTypedSelector((state) => getSortData(state));
-  const players = useTypedSelector((state) => getFilteredPlayers(state));
+  useEffect(() => {
+    setSortColumn('total_points');
+    setSortDirection('desc');
+  }, [setSortColumn, setSortDirection]);
 
-  const handleSortClick = (columnName: string) => {
-    dispatch(updateSortColumn(columnName));
-  };
+  const players = useTypedSelector((state) =>
+    getFilteredPlayers(state, sortColumn, sortDirection),
+  );
+
+  const columns: Column<Player>[] = [
+    {
+      title: 'Name',
+      field: 'name',
+      className: styles.name,
+      renderCell: (player: Player) =>
+        `${player.first_name} ${player.second_name}`,
+    },
+    {
+      title: 'Points (total)',
+      field: 'total_points',
+      sortable: true,
+    },
+    {
+      title: 'Goals',
+      field: 'goals_scored',
+      sortable: true,
+    },
+    {
+      title: 'Assists',
+      field: 'assists',
+      sortable: true,
+    },
+    {
+      title: 'G + A',
+      field: 'goals_plus_assists',
+      sortable: true,
+    },
+    {
+      title: 'Points (bonus)',
+      field: 'bonus',
+      sortable: true,
+    },
+    {
+      title: 'Influence',
+      field: 'influence',
+      sortable: true,
+    },
+    {
+      title: 'Creativity',
+      field: 'creativity',
+      sortable: true,
+    },
+    {
+      title: 'Threat',
+      field: 'threat',
+      sortable: true,
+    },
+    {
+      title: 'ICT Index',
+      field: 'ict_index',
+      sortable: true,
+    },
+  ];
 
   return (
-    <TableContainer className='container'>
-      <Table fullWidth>
-        <TableHeader sticky>
-          <TableRow>
-            <TableCell sticky='header-cell' className='name'>
-              Name
-            </TableCell>
-            <TableCell
-              aria-sort={column === 'total_points' ? direction : 'none'}
-              onClick={() => handleSortClick('total_points')}
-              sortIconAfter
-            >
-              Points (total)
-            </TableCell>
-            <TableCell
-              aria-sort={column === 'goals_scored' ? direction : 'none'}
-              onClick={() => handleSortClick('goals_scored')}
-              sortIconAfter
-            >
-              Goals
-            </TableCell>
-            <TableCell
-              aria-sort={column === 'assists' ? direction : 'none'}
-              onClick={() => handleSortClick('assists')}
-              sortIconAfter
-            >
-              Assists
-            </TableCell>
-            <TableCell
-              aria-sort={column === 'goals_plus_assists' ? direction : 'none'}
-              onClick={() => handleSortClick('goals_plus_assists')}
-              sortIconAfter
-            >
-              G + A
-            </TableCell>
-            <TableCell
-              aria-sort={column === 'bonus' ? direction : 'none'}
-              onClick={() => handleSortClick('bonus')}
-              sortIconAfter
-            >
-              Bonus Points
-            </TableCell>
-            <TableCell
-              aria-sort={column === 'bonus' ? direction : 'none'}
-              onClick={() => handleSortClick('bonus')}
-              sortIconAfter
-            >
-              Bonus Points
-            </TableCell>
-            <TableCell
-              aria-sort={column === 'bonus' ? direction : 'none'}
-              onClick={() => handleSortClick('bonus')}
-              sortIconAfter
-            >
-              Bonus Points
-            </TableCell>
-            <TableCell
-              aria-sort={column === 'bonus' ? direction : 'none'}
-              onClick={() => handleSortClick('bonus')}
-              sortIconAfter
-            >
-              Bonus Points
-            </TableCell>
-            <TableCell
-              aria-sort={column === 'bonus' ? direction : 'none'}
-              onClick={() => handleSortClick('bonus')}
-              sortIconAfter
-            >
-              Bonus Points
-            </TableCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {players.map((player) => (
-            <TableRow key={player.id}>
-              <TableCell sticky='cell' className='name'>
-                {player.first_name} {player.second_name}
-              </TableCell>
-              <TableCell className={column === 'total_points' && 'sorted'}>
-                {player.total_points}
-              </TableCell>
-              <TableCell className={column === 'goals_scored' && 'sorted'}>
-                {player.goals_scored}
-              </TableCell>
-              <TableCell className={column === 'assists' && 'sorted'}>
-                {player.assists}
-              </TableCell>
-              <TableCell
-                className={column === 'goals_plus_assists' && 'sorted'}
-              >
-                {player.goals_plus_assists}
-              </TableCell>
-              <TableCell className={column === 'bonus' && 'sorted'}>
-                {player.bonus}
-              </TableCell>
-              <TableCell className={column === 'bonus' && 'sorted'}>
-                {player.bonus}
-              </TableCell>
-              <TableCell className={column === 'bonus' && 'sorted'}>
-                {player.bonus}
-              </TableCell>
-              <TableCell className={column === 'bonus' && 'sorted'}>
-                {player.bonus}
-              </TableCell>
-              <TableCell className={column === 'bonus' && 'sorted'}>
-                {player.bonus}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Card className={styles.card}>
+      <CardContent>
+        <Table columns={columns} data={players} stickyHeader stickyRow />
+      </CardContent>
+    </Card>
   );
 };
 

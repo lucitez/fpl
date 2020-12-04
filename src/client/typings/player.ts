@@ -13,7 +13,7 @@ interface Player {
   cost_change_event_fall: number;
   cost_change_start: number;
   cost_change_start_fall: number;
-  creativity: number;
+  creativity: string;
   creativity_rank: number;
   creativity_rank_type: number;
   direct_freekicks_order: unknown;
