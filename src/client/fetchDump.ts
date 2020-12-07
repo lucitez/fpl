@@ -1,9 +1,10 @@
 import { makeHttpRequest } from './client';
-import { Player, Team } from './typings';
+import { Player, Team, Position } from './typings';
 
 interface Response {
   teams: Team[];
   elements: Player[];
+  elementTypes: Position[];
 }
 
 const fetchDump = (): Promise<Response> =>

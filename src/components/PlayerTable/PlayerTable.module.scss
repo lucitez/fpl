@@ -1,4 +1,14 @@
-.card {
+.filterCard {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.filterGrid {
+  width: 100%;
+  align-items: center;
+}
+
+.tableCard {
   width: 100%;
   max-height: 88vh;
   overflow: hidden;

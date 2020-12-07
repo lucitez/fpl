@@ -1,0 +1,2 @@
+1. filter table (team, position)
+2. search table

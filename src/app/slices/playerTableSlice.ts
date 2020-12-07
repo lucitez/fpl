@@ -4,7 +4,7 @@ import { RootState } from '../store';
 
 interface PlayerTableState {
   teamId: number;
-  positionId: 1 | 2 | 3 | 4;
+  positionId: number;
 }
 
 const initialState: PlayerTableState = {
@@ -16,8 +16,27 @@ export const playerTableSlice = createSlice({
   name: 'teams',
   initialState,
   reducers: {
-    updateSelectedTeam: (state, { payload }: PayloadAction<number>) => {
-      state.teamId = payload;
+    updateSelectedTeam: (
+      state,
+      { payload: teamIdString }: PayloadAction<string>,
+    ) => {
+      const teamId = parseInt(teamIdString, 10);
+      if (isNaN(teamId)) {
+        state.teamId = null;
+      } else {
+        state.teamId = teamId;
+      }
+    },
+    updateSelectedPosition: (
+      state,
+      { payload: positionIdString }: PayloadAction<string>,
+    ) => {
+      const positionId = parseInt(positionIdString, 10);
+      if (isNaN(positionId)) {
+        state.positionId = null;
+      } else {
+        state.positionId = positionId;
+      }
     },
   },
 });
@@ -42,6 +61,9 @@ const getFilteredPlayers = (
   return orderBy(players, sortColumn, sortDirection).slice(0, 50);
 };
 
-export const { updateSelectedTeam } = playerTableSlice.actions;
+export const {
+  updateSelectedTeam,
+  updateSelectedPosition,
+} = playerTableSlice.actions;
 export { getFilteredPlayers };
 export default playerTableSlice.reducer;
