@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { filter, orderBy } from 'lodash';
+import { filter, orderBy, startsWith } from 'lodash';
 import { RootState } from '../store';
 
 interface PlayerTableState {
@@ -45,6 +45,7 @@ const getFilteredPlayers = (
   state: RootState,
   sortColumn: string,
   sortDirection: 'asc' | 'desc',
+  search: string,
 ) => {
   let players = Object.values(state.playersSlice.byId);
   const teamId = state.playerTableSlice.teamId;
@@ -56,6 +57,14 @@ const getFilteredPlayers = (
 
   players = filter(players, (player) => {
     return positionId ? player.element_type === positionId : true;
+  });
+
+  players = filter(players, (player) => {
+    if (!search) return true;
+    return (
+      startsWith(player.first_name.toLowerCase(), search.toLowerCase()) ||
+      startsWith(player.second_name.toLowerCase(), search.toLowerCase())
+    );
   });
 
   return orderBy(players, sortColumn, sortDirection).slice(0, 50);

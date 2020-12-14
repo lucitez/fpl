@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { ChangeEvent, FC, useEffect } from 'react';
 import {
   getFilteredPlayers,
   updateSelectedPosition,
@@ -12,17 +12,23 @@ import styles from './PlayerTable.module.scss';
 import { useQueryParam, StringParam } from 'use-query-params';
 import {
   Button,
+  CancelSVGIcon,
   Card,
   CardContent,
   Grid,
   GridCell,
   ListboxOption,
+  SearchSVGIcon,
   Select,
+  TextField,
 } from 'react-md';
 import { useDispatch } from 'react-redux';
+import { PlayerState } from 'app/slices';
+import { useHistory } from 'react-router-dom';
 
 const PlayerTable: FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [sortColumn, setSortColumn] = useQueryParam<string>('sort');
   const [sortDirection, setSortDirection] = useQueryParam<'asc' | 'desc'>(
@@ -33,6 +39,7 @@ const PlayerTable: FC = () => {
     'position_id',
     StringParam,
   );
+  const [search, setSearch] = useQueryParam('search', StringParam);
 
   useEffect(() => {
     setSortColumn('total_points');
@@ -45,7 +52,7 @@ const PlayerTable: FC = () => {
   }, [dispatch, selectedTeam, selectedPosition]);
 
   const players = useTypedSelector((state) =>
-    getFilteredPlayers(state, sortColumn, sortDirection),
+    getFilteredPlayers(state, sortColumn, sortDirection, search),
   );
 
   const teams = useTypedSelector((state) =>
@@ -83,6 +90,18 @@ const PlayerTable: FC = () => {
   const clearFilters = () => {
     setSelectedTeam(undefined);
     setSelectedPosition(undefined);
+    setSearch(undefined);
+  };
+
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = event;
+    value ? setSearch(value) : setSearch(undefined);
+  };
+
+  const onRowClick = (player: PlayerState) => {
+    history.replace(`/players/${player.id}`);
   };
 
   return (
@@ -108,6 +127,15 @@ const PlayerTable: FC = () => {
                 labelKey='name'
               />
             </GridCell>
+            <GridCell colSpan={2}>
+              <TextField
+                id='name-search'
+                value={search || ''}
+                placeholder='Search...'
+                rightChildren={<SearchSVGIcon />}
+                onChange={onSearchChange}
+              />
+            </GridCell>
             <GridCell>
               <Button
                 theme='primary'
@@ -123,7 +151,13 @@ const PlayerTable: FC = () => {
 
       <Card className={styles.tableCard}>
         <CardContent>
-          <Table columns={columns} data={players} stickyHeader stickyRow />
+          <Table
+            columns={columns}
+            data={players}
+            stickyHeader
+            stickyRow
+            onRowClick={onRowClick}
+          />
         </CardContent>
       </Card>
     </div>

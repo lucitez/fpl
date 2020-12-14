@@ -25,6 +25,7 @@ interface Props<T = unknown> {
   data: unknown[];
   stickyHeader?: boolean;
   stickyRow?: boolean;
+  onRowClick?: (row: T) => void;
 }
 
 const Table: FC<Props> = ({
@@ -32,6 +33,7 @@ const Table: FC<Props> = ({
   data,
   stickyHeader = false,
   stickyRow = false,
+  onRowClick = null,
 }) => {
   const [sortColumn, setSortColumn] = useQueryParam<string>('sort');
   const [sortDirection, setSortDirection] = useQueryParam<'asc' | 'desc'>(
@@ -87,7 +89,11 @@ const Table: FC<Props> = ({
         </TableHeader>
         <TableBody>
           {data.map((item, rowIndex) => (
-            <TableRow key={`${item['id']}-${rowIndex}`}>
+            <TableRow
+              key={`${item['id']}-${rowIndex}`}
+              clickable={!!onRowClick}
+              onClick={() => onRowClick(item)}
+            >
               {columns.map((column, columnIndex) => (
                 <TableCell
                   key={column.field}

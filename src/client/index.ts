@@ -1,4 +1,7 @@
 import fetchDump, { Response as FetchDumpResponse } from './fetchDump';
+import getPlayerDetails, {
+  Response as PlayerDetailsResponse,
+} from './getPlayerDetails';
 
-export { fetchDump };
-export type { FetchDumpResponse };
+export { fetchDump, getPlayerDetails };
+export type { FetchDumpResponse, PlayerDetailsResponse };
