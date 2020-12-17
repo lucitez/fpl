@@ -10,6 +10,13 @@ const initialState: PositionsState = {
   byId: {},
 };
 
+enum Positions {
+  GOALKEEPER = 1,
+  DEFENDER,
+  MIDFIELDER,
+  FORWARD,
+}
+
 export const positionsSlice = createSlice({
   name: 'positions',
   initialState,
@@ -27,4 +34,5 @@ export const positionsSlice = createSlice({
   },
 });
 
+export { Positions };
 export default positionsSlice.reducer;

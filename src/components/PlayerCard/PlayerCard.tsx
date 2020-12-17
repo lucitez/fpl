@@ -1,6 +1,6 @@
+import React, { FC } from 'react';
 import { useTypedSelector } from 'app/store';
 import { orderBy } from 'lodash';
-import React, { FC } from 'react';
 import { Card, CardContent, Text } from 'react-md';
 
 import styles from './PlayerCard.module.scss';

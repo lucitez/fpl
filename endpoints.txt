@@ -3,3 +3,6 @@ https://fantasy.premierleague.com/api/element-summary/4/
 
 -- player image
 https://resources.premierleague.com/premierleague/photos/players/110x140/p${player.code}.png
+
+-- team badge
+https://resources.premierleague.com/premierleague/badges/25/t{code}@x2.png

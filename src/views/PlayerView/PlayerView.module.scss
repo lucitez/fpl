@@ -2,7 +2,31 @@
   padding: 1rem;
 }
 
-.card {
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.playerCard {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.playerDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 20rem;
+}
+
+.graphCard {
   width: 100%;
   height: 90vh;
+}
+
+.graphContainer {
+  width: 100%;
+  height: 80vh;
 }

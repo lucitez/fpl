@@ -23,10 +23,10 @@ const HomeView: FC = () => {
         <CircularProgress id='player-dump-loading' />
       ) : (
         <div>
-          <Text type='headline-2' margin='none' color='theme-secondary'>
+          {/* <Text type='headline-2' margin='none' color='theme-secondary'>
             Stat Leaders
-          </Text>
-          <Grid>
+          </Text> */}
+          {/* <Grid>
             <GridCell className={styles.playerCardContainer} colSpan={3}>
               <PlayerCard title='Total points' field='total_points' />
             </GridCell>
@@ -42,7 +42,7 @@ const HomeView: FC = () => {
             <GridCell className={styles.playerCardContainer} colSpan={3}>
               <PlayerCard title='Assists' field='assists' />
             </GridCell>
-          </Grid>
+          </Grid> */}
           <PlayerTable />
         </div>
       )}

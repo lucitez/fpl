@@ -1,0 +1,20 @@
+@import '../../variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 0.5rem;
+  border-style: solid;
+  border-width: 0.5px;
+  border-radius: 3px;
+}
+
+.opponentContainer {
+  display: flex;
+  align-items: center;
+}
+
+.opponent {
+  margin-right: 3px;
+}
