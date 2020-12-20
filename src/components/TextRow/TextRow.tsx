@@ -1,19 +1,19 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Grid, GridCell, Text } from 'react-md';
 
 interface Props {
   field: string;
-  value: unknown;
+  value: ReactElement | string;
 }
 
 const TextRow: FC<Props> = ({ field, value }) => {
   return (
-    <Grid padding={0}>
-      <GridCell colSpan={8}>
+    <Grid padding={1}>
+      <GridCell colSpan={7}>
         <Text>{field}:</Text>
       </GridCell>
-      <GridCell>
-        <Text weight='bold'>{value}</Text>
+      <GridCell colSpan={5}>
+        {typeof value === 'string' ? <Text weight='bold'>{value}</Text> : value}
       </GridCell>
     </Grid>
   );

@@ -1,0 +1,31 @@
+@import '~@react-md/theme/dist/color-palette';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.rankContainer {
+  display: flex;
+  padding: 0.5mm 1.5mm;
+  margin-left: 2mm;
+  border-radius: 2mm;
+  align-items: center;
+  justify-content: center;
+  color: $rmd-grey-50;
+}
+
+.elite {
+  background-color: $rmd-green-500;
+}
+
+.average {
+  background-color: $rmd-orange-500;
+}
+
+.poor {
+  background-color: $rmd-red-500;
+}

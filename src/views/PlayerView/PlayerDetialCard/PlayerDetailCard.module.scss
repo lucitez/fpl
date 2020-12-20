@@ -1,0 +1,19 @@
+.playerCard {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.playerDetailsContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}

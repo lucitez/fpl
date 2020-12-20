@@ -5,23 +5,14 @@ import {
   Button,
   Card,
   CircularProgress,
-  InboxSVGIcon,
-  InfoSVGIcon,
   Text,
 } from 'react-md';
 import { useDispatch } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useTypedSelector } from '../../app/store';
-import styles from './PlayerView.module.scss';
-import {
-  ResponsiveLine,
-  Datum,
-  Serie,
-  Point,
-  PointTooltipProps,
-  DatumValue,
-} from '@nivo/line';
-import PlayerDetailCard from './PlayerDetailCard';
+import classes from './PlayerView.module.scss';
+import { ResponsiveLine, Datum, Serie, PointTooltipProps } from '@nivo/line';
+import PlayerDetailCard from './PlayerDetialCard';
 import TeamTooltip from 'components/TeamTooltip';
 
 const PlayerView: FC = () => {
@@ -63,27 +54,24 @@ const PlayerView: FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <div style={{ display: 'flex', flex: 1 }}>
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <div className={classes.headerSection}>
           <Button buttonType='icon' theme='primary' themeType='contained'>
             <ArrowBackSVGIcon
               color='theme-primary'
               onClick={() => history.replace('/')}
             />
           </Button>
-          <Text type='headline-3' margin='none'>
-            {player.first_name} {player.second_name}
-          </Text>
         </div>
-        <div style={{ display: 'flex', flex: 1 }}>
+        <div className={classes.headerSection}>
           <PlayerDetailCard player={player} />
         </div>
-        <div style={{ display: 'flex', flex: 1 }} />
+        <div className={classes.headerSection} />
       </div>
-      <Card className={styles.graphCard}>
+      <Card className={classes.graphCard}>
         <Text>Points per gameweek</Text>
-        <div className={styles.graphContainer}>
+        <div className={classes.graphContainer}>
           <ResponsiveLine
             data={serie}
             pointSize={10}

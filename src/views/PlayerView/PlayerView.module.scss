@@ -8,16 +8,12 @@
   margin-bottom: 1rem;
 }
 
-.playerCard {
-  display: flex !important;
-  flex-direction: row;
-  justify-content: space-between;
+.headerSection {
+  display: flex;
+  flex: 1;
 }
 
-.playerDetails {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.rankingsContainer {
   max-width: 20rem;
 }
 
