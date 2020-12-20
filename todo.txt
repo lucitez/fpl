@@ -1,2 +1,9 @@
-1. filter table (team, position)
-2. search table
+1. make graph look pretty
+2. make graph dynamic -- show different stats
+3. overlay graph? multiple stats per gameweek?
+4. make home include search params
+5. player comparison graph
+6. How do we show undervalued players? points / price, ICT / points, ICT / price, etc.
+7. chart tooltip should show value vs. team
+8. click on gw for player to see breakdown (how did they reach X points?) <-- modal
+9. maybe a second card next to the player summary that's a table of gw -> columns of stats

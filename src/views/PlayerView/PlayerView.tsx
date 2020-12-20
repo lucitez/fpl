@@ -57,11 +57,13 @@ const PlayerView: FC = () => {
     <div className={classes.container}>
       <div className={classes.header}>
         <div className={classes.headerSection}>
-          <Button buttonType='icon' theme='primary' themeType='contained'>
-            <ArrowBackSVGIcon
-              color='theme-primary'
-              onClick={() => history.replace('/')}
-            />
+          <Button
+            buttonType='icon'
+            theme='primary'
+            themeType='contained'
+            onClick={() => history.replace('/')}
+          >
+            <ArrowBackSVGIcon color='theme-primary' />
           </Button>
         </div>
         <div className={classes.headerSection}>
