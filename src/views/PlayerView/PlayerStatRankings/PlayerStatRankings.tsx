@@ -7,13 +7,13 @@ import { useTypedSelector } from 'app/store';
 import { orderBy } from 'lodash';
 import Ranking from 'components/Ranking';
 
-import classes from './PlayerView.module.scss';
+import classes from './PlayerStatRankings.module.scss';
 
 interface Props {
   player: PlayerState;
 }
 
-const PlayerDetails: FC<Props> = ({ player }) => {
+const PlayerStatRankings: FC<Props> = ({ player }) => {
   const players = useTypedSelector((state) =>
     Object.values(state.playersSlice.byId),
   );
@@ -93,4 +93,4 @@ const PlayerDetails: FC<Props> = ({ player }) => {
   );
 };
 
-export default PlayerDetails;
+export default PlayerStatRankings;

@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Card, CardContent, Text } from 'react-md';
 import { useTypedSelector } from '../../../app/store';
 import classes from './PlayerDetailCard.module.scss';
-import PlayerDetails from '../PlayerDetails';
+import PlayerStatRankings from '../PlayerStatRankings';
 
 interface Props {
   player: PlayerState;
@@ -43,7 +43,7 @@ const PlayerDetailCard: FC<Props> = ({ player }) => {
             {player.selected_by_percent}% ownership
           </Text>
         </div>
-        <PlayerDetails player={player} />
+        <PlayerStatRankings player={player} />
       </CardContent>
     </Card>
   );
