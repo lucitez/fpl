@@ -1,5 +1,5 @@
 interface Player {
-  id: number;
+  id: string;
   assists: number;
   bonus: number;
   bps: number;

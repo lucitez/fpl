@@ -23,7 +23,7 @@ const PlayerStatRankings: FC<Props> = ({ player }) => {
   const getRank = (field: string) => {
     const sortedPlayers = orderBy(players, field, 'desc');
 
-    let currentValue = sortedPlayers[1][field];
+    let currentValue = sortedPlayers[0][field];
     let currentRank = 1;
     let rank: number;
     let tied = false;
@@ -31,15 +31,19 @@ const PlayerStatRankings: FC<Props> = ({ player }) => {
     for (let i = 0; i < sortedPlayers.length; i++) {
       const rankedPlayer = sortedPlayers[i];
 
+      console.log(rankedPlayer.second_name, rankedPlayer[field], currentValue);
+
       if (rankedPlayer[field] < currentValue) {
-        currentRank = i;
+        currentRank = i + 1;
         currentValue = rankedPlayer[field];
       }
 
       if (rankedPlayer.id === player.id) {
+        const previousPlayer = sortedPlayers[i - 1];
+        const nextPlayer = sortedPlayers[i + 1];
         if (
-          sortedPlayers[i + 1] &&
-          sortedPlayers[i + 1][field] === rankedPlayer[field]
+          (previousPlayer && previousPlayer[field] === rankedPlayer[field]) ||
+          (nextPlayer && nextPlayer[field] === rankedPlayer[field])
         ) {
           tied = true;
         }

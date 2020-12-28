@@ -1,11 +1,17 @@
 .container {
-  max-height: 90vh;
   max-width: 100%;
 }
 
 .column {
   min-width: 200px;
   max-width: 200px;
+  text-overflow: ellipsis;
+}
+
+.columnCompact {
+  min-width: 75px;
+  max-width: 75px;
+  text-overflow: ellipsis;
 }
 
 .sortedColumn {

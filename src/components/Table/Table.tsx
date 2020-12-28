@@ -25,6 +25,8 @@ interface Props<T = unknown> {
   data: unknown[];
   stickyHeader?: boolean;
   stickyRow?: boolean;
+  type?: 'full' | 'compact';
+  maxHeight?: number;
   onRowClick?: (row: T) => void;
 }
 
@@ -33,6 +35,8 @@ const Table: FC<Props> = ({
   data,
   stickyHeader = false,
   stickyRow = false,
+  type = 'full',
+  maxHeight = 90,
   onRowClick = null,
 }) => {
   const [sortColumn, setSortColumn] = useQueryParam<string>('sort');
@@ -63,7 +67,10 @@ const Table: FC<Props> = ({
   };
 
   return (
-    <TableContainer className={styles.container}>
+    <TableContainer
+      className={styles.container}
+      style={{ maxHeight: `${maxHeight}vh` }}
+    >
       <MDTable fullWidth>
         <TableHeader sticky={stickyHeader}>
           <TableRow>
@@ -71,7 +78,10 @@ const Table: FC<Props> = ({
               <TableCell
                 key={column.field}
                 sticky={calculateStickyHeaderValue(index)}
-                className={clsx(styles.column, column.className)}
+                className={clsx(
+                  type === 'compact' ? styles.columnCompact : styles.column,
+                  column.className,
+                )}
                 aria-sort={
                   column.sortable && sortColumn === column.field
                     ? ariaSortDirection
@@ -98,7 +108,7 @@ const Table: FC<Props> = ({
                 <TableCell
                   key={column.field}
                   className={clsx(
-                    styles.column,
+                    type === 'compact' ? styles.columnCompact : styles.column,
                     sortColumn === column.field && styles.sortedColumn,
                   )}
                   sticky={stickyRow && columnIndex === 0 ? 'cell' : null}

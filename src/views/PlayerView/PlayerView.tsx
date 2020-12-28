@@ -1,10 +1,17 @@
 import { fetchPlayerDetails } from 'app/slices/playersSlice';
 import React, { FC, useEffect } from 'react';
-import { ArrowBackSVGIcon, Button, CircularProgress } from 'react-md';
+import {
+  ArrowBackSVGIcon,
+  Button,
+  CircularProgress,
+  Grid,
+  GridCell,
+} from 'react-md';
 import { useDispatch } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useTypedSelector } from '../../app/store';
 import PlayerDetailCard from './PlayerDetialCard';
+import PlayerGameweekHistory from './PlayerGameweekHistory';
 import PlayerStatGraph from './PlayerStatGraph';
 
 import classes from './PlayerView.module.scss';
@@ -31,22 +38,24 @@ const PlayerView: FC = () => {
 
   return (
     <div className={classes.container}>
-      <div className={classes.header}>
-        <div className={classes.headerSection}>
+      <Grid className={classes.header}>
+        <GridCell colSpan={1}>
           <Button
             buttonType='icon'
             theme='primary'
             themeType='contained'
-            onClick={() => history.replace('/')}
+            onClick={() => history.goBack()}
           >
             <ArrowBackSVGIcon color='theme-primary' />
           </Button>
-        </div>
-        <div className={classes.headerSection}>
+        </GridCell>
+        <GridCell colSpan={4}>
           <PlayerDetailCard player={player} />
-        </div>
-        <div className={classes.headerSection} />
-      </div>
+        </GridCell>
+        <GridCell colSpan={7}>
+          <PlayerGameweekHistory playerId={player.id} />
+        </GridCell>
+      </Grid>
       <PlayerStatGraph playerId={id} />
     </div>
   );

@@ -12,7 +12,6 @@ import styles from './PlayerTable.module.scss';
 import { useQueryParam, StringParam } from 'use-query-params';
 import {
   Button,
-  CancelSVGIcon,
   Card,
   CardContent,
   Grid,
@@ -42,9 +41,9 @@ const PlayerTable: FC = () => {
   const [search, setSearch] = useQueryParam('search', StringParam);
 
   useEffect(() => {
-    setSortColumn('total_points');
-    setSortDirection('desc');
-  }, [setSortColumn, setSortDirection]);
+    !sortColumn && setSortColumn('total_points');
+    !sortDirection && setSortDirection('desc');
+  }, [sortColumn, sortDirection, setSortColumn, setSortDirection]);
 
   useEffect(() => {
     dispatch(updateSelectedTeam(selectedTeam));
@@ -101,7 +100,7 @@ const PlayerTable: FC = () => {
   };
 
   const onRowClick = (player: PlayerState) => {
-    history.replace(`/players/${player.id}`);
+    history.push(`/players/${player.id}`);
   };
 
   return (
@@ -157,6 +156,7 @@ const PlayerTable: FC = () => {
             stickyHeader
             stickyRow
             onRowClick={onRowClick}
+            type='compact'
           />
         </CardContent>
       </Card>
